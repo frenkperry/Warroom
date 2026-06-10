@@ -33,6 +33,25 @@ h1 span{color:var(--green)}
 .nextmove .nm-name{font-family:"Archivo";font-weight:900;font-size:19px}
 .nextmove .nm-meta{font-size:11px;color:var(--muted)}
 .nextmove .nm-bid{margin-left:auto;font-family:"Archivo";font-weight:800;color:var(--gold);font-size:15px}
+.nextmove.call{background:linear-gradient(90deg,#13243a,#11231b);border-color:var(--blue)}
+.nextmove.call .nm-bid{color:var(--blue)}
+.nm-cap{font-size:9.5px;color:var(--muted2);margin:-8px 2px 12px;letter-spacing:.03em;line-height:1.4}
+.oracolo{border-radius:12px;padding:12px 15px;margin:0 0 14px;border:1px solid}
+.oracolo .or-lab{font-size:10px;letter-spacing:.18em;text-transform:uppercase;font-weight:700}
+.oracolo .or-msg{font-size:13px;margin-top:4px;line-height:1.45}
+.oracolo .or-msg b{color:var(--text)}
+.oracolo .or-names{font-family:"Archivo";font-weight:800;font-size:13.5px;margin-top:6px;display:flex;gap:8px;flex-wrap:wrap}
+.oracolo .or-names .onm{background:#ffffff10;border:1px solid #ffffff22;border-radius:7px;padding:3px 8px}
+.oracolo .or-names .onm b{color:var(--gold)}
+.oracolo .or-plan{font-size:10.5px;color:var(--muted);margin-top:9px;border-top:1px solid #ffffff14;padding-top:7px;letter-spacing:.02em;display:flex;gap:12px;flex-wrap:wrap}
+.oracolo .or-plan b{color:var(--text);font-family:"Archivo";font-weight:800}
+.oracolo.ok{background:#0f2419;border-color:var(--green-dim)}.oracolo.ok .or-lab{color:var(--green)}
+.oracolo.warn{background:#2a230f;border-color:var(--gold)}.oracolo.warn .or-lab{color:var(--gold)}
+.oracolo.tight{background:#2a1a0c;border-color:var(--amber)}.oracolo.tight .or-lab{color:var(--amber)}
+.oracolo.crisis{background:#2a0f0f;border-color:var(--red)}.oracolo.crisis .or-lab{color:var(--red)}.oracolo.crisis .or-msg{color:#ffd9d7}
+.oracolo.done{background:#11231b;border-color:var(--line2)}.oracolo.done .or-lab{color:var(--muted)}
+.sortsel{background:var(--panel);border:1px solid var(--line);border-radius:10px;color:var(--text);padding:8px 10px;font-family:"IBM Plex Mono";font-size:12px}
+.sortsel:focus{outline:none;border-color:var(--green-dim)}
 details.box{background:var(--panel2);border:1px solid var(--line);border-radius:13px;margin:14px 0;overflow:hidden}
 details.box>summary{cursor:pointer;padding:14px 18px;font-family:"Archivo";font-weight:800;font-size:14px;text-transform:uppercase;letter-spacing:.03em;list-style:none;display:flex;align-items:center;gap:10px}
 details.box>summary::-webkit-details-marker{display:none}
@@ -132,6 +151,13 @@ footer{color:var(--muted2);font-size:10px;text-align:center;margin-top:28px;line
 .natchip .nmeta{font-size:9px;color:var(--muted2);margin-top:2px;position:relative;z-index:2;letter-spacing:.04em}
 .natchip .heat{position:absolute;left:0;bottom:0;height:3px;background:linear-gradient(90deg,var(--green-dim),var(--green));z-index:1}
 .natchip.dead{opacity:.45;border-color:var(--red);background:#1a0e0e}.natchip.dead .nnm{text-decoration:line-through;color:var(--muted)}.natchip.dead .npc{color:var(--red)}.natchip.dead .heat{background:var(--red);width:100%!important;opacity:.3}
+.girgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:9px;margin-top:10px}
+.gircard{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:9px 10px}
+.girhd{font-family:"Archivo";font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);margin-bottom:6px;border-bottom:1px solid var(--line);padding-bottom:4px}
+.girnat{display:flex;align-items:center;gap:6px;padding:4px 5px;border-radius:6px;cursor:pointer;user-select:none;font-size:11.5px;transition:.12s}
+.girnat:hover{background:#10241936}
+.girnat .nfl{font-size:14px;line-height:1}.girnat .nnm{font-weight:600;color:var(--text)}.girnat .npc{margin-left:auto;font-family:"Archivo";font-weight:800;font-size:11px;color:var(--gold)}
+.girnat.dead{opacity:.45}.girnat.dead .nnm{text-decoration:line-through;color:var(--muted)}.girnat.dead .npc{color:var(--red)}
 .session-bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0 2px}
 .session-bar .sb-btn{border:1px solid var(--line2);background:var(--panel);color:var(--text);border-radius:9px;padding:8px 12px;font-size:11px;font-family:"IBM Plex Mono";cursor:pointer}
 .session-bar .sb-btn:hover{border-color:var(--green);color:var(--green)}
@@ -165,10 +191,15 @@ footer{color:var(--muted2);font-size:10px;text-align:center;margin-top:28px;line
 
 <div class="wrap">
 <div class="nextmove" id="nextmove"></div>
+<div class="nm-cap" id="nmCap" style="display:none">Pesa: valore × bisogno-di-ruolo × spazio-budget-del-ruolo. È la mossa che riempie meglio gli slot che ti restano.</div>
+<div class="nextmove call" id="callmove" style="display:none"></div>
+<div class="nm-cap" id="cmCap" style="display:none">Pesa: valore × bassa concorrenza ATTUALE (quanti rivali possono ancora rilanciarti). È chi conviene chiamare adesso (vale anche col banditore).</div>
+<div class="oracolo ok" id="oracolo"></div>
 
 <details class="box" id="natBox" open><summary>🌍 Nazioni & turno — controllo set vivi</summary><div class="box-body">
 <p style="color:var(--muted);font-size:11.5px">Imposta il <b>turno</b> e clicca una nazione per marcarla <b>eliminata</b> (ri-clic = la riporti viva). I vivi vengono rinormalizzati col <b>field-thinning</b>: tolto un big, gli altri big salgono; un'eliminata va a equo 1. Le % NON sono quote reali, sono la rinormalizzazione per forza del nostro modello.</p>
 <div class="phase" id="turnoSel2" style="max-width:520px"></div>
+<div class="tabs" id="natViewToggle" style="margin:10px 0;display:inline-flex"><button class="tab active" data-nv="grid">Favorite (griglia)</button><button class="tab" data-nv="groups">Gironi</button></div>
 <div id="natPanel"></div>
 </div></details>
 
@@ -226,13 +257,15 @@ footer{color:var(--muted2);font-size:10px;text-align:center;margin-top:28px;line
 <div class="tabs" id="viewToggle"><button class="tab active" data-v="role">Per ruolo</button><button class="tab" data-v="queue">Coda asta (A→Z)</button></div>
 <div class="tabs" id="tabs"><button class="tab active" data-r="ALL">Tutti</button><button class="tab" data-r="P">Portieri</button><button class="tab" data-r="D">Difensori</button><button class="tab" data-r="C">Centrocamp.</button><button class="tab" data-r="A">Attaccanti</button></div>
 <input class="search" id="search" placeholder="Cerca…">
+<select class="sortsel" id="sortSel" title="Ordina la lista per ruolo"><option value="rec">Ordina: Consigliato</option><option value="stars">Ordina: Stelle</option><option value="equo">Ordina: Equo</option><option value="max">Ordina: Max</option></select>
+<label class="chk"><input type="checkbox" id="onlyStars">Solo ★★/★★★</label>
 <label class="chk"><input type="checkbox" id="hideTaken">Nascondi presi</label>
 <button class="btn-reset" id="reset">Reset</button>
 </div>
 <div class="legend" style="margin:6px 0 14px"><span><b style="color:var(--gold)">Max</b> = tuo tetto consigliato (può superare l'Equo se hai surplus; "–" se ruolo pieno)</span><span><b style="color:var(--amber)">⚠</b> = infortunio/dubbio fisico</span><span><b style="color:var(--green)">★ CONSIGLIATO ORA</b> = mossa migliore adesso</span><span><b style="color:var(--gold)">★★★</b> priorità · <b style="color:var(--green)">★★</b> buona alternativa · <b style="color:var(--muted)">★</b> ripiego conveniente · <b style="color:var(--muted2)">☆☆☆</b> trappola / non conveniente · <b style="color:var(--red)">AL COMPLETO</b> ruolo già pieno</span><span>Quot. = base listone fantaclub (non è l'offerta minima)</span></div>
 <div id="board"></div>
 <div class="roster" id="roster"></div>
-<footer>Regole lega confermate: gol +3 (tutti i ruoli), assist +1, porta imbattuta 0, malus −1 gol subito portiere, rigore parato +3, rigore sbagliato −3. Modificatore difesa +1/+3/+6 (media portiere + 3 migliori difensori, SOLO con difesa a 4). Recupero crediti = costo d'acquisto. Asta a banditore automatico, ordine alfabetico, una passata, rilanci, quotazione non vincolante. Fonte voti: Redazione Mondiale Media (editoriale) · assist: Fantaclub. Quotazioni = listone fornito (Dumfries 17, Wesley rimosso). Rating = media 2025/26 WhoScored/SofaScore per la fascia decisionale (per alcuni big: consenso). Partite attese: Opta, inizio giugno 2026. Stima soggettiva, non garanzia. Salvataggio automatico in locale (per nome giocatore) + Esporta/Importa JSON: puoi ricaricare la pagina senza perdere l'asta. V3.1 · modalità recupero (turno + field-thinning sui vivi) · coda A→Z con tutte le colonne · indicatore stato salvataggio.</footer>
+<footer>Regole lega confermate: gol +3 (tutti i ruoli), assist +1, porta imbattuta 0, malus −1 gol subito portiere, rigore parato +3, rigore sbagliato −3. Modificatore difesa +1/+3/+6 (media portiere + 3 migliori difensori, SOLO con difesa a 4). Recupero crediti = costo d'acquisto. Asta a banditore automatico, ordine alfabetico, una passata, rilanci, quotazione non vincolante. Fonte voti: Redazione Mondiale Media (editoriale) · assist: Fantaclub. Quotazioni = listone fornito (Dumfries 17, Wesley rimosso). Rating = media 2025/26 WhoScored/SofaScore per la fascia decisionale (per alcuni big: consenso). Partite attese: Opta, inizio giugno 2026. Stima soggettiva, non garanzia. Salvataggio automatico in locale (per nome giocatore) + Esporta/Importa JSON: puoi ricaricare la pagina senza perdere l'asta. V3.4 · Oracolo salvavita (alert solvibilità) · caselle budget-aware + didascalie · piano rosa (stelle-e-gregari) · ordina/filtra per stelle · max trappole = "–" · modalità recupero (6 stadi) · pannello Gironi · consigliere chiamata · coda A→Z.</footer>
 </div>
 
 <div class="overlay" id="overlay"><div class="modal">
@@ -335,7 +368,7 @@ const TIER_BY_EG=eg=>eg>=5.7?"S":eg>=5.0?"A":eg>=4.6?"B":eg>=3.85?"C":"D";
 const CALLNUM={"Maignan":689,"Simón":1058,"E. Martínez":705,"D. Costa":284,"Becker":168,"Pickford":891,"Courtois":287,"Kobel":615,"Bounou":209,"Verbruggen":1181,"Livakovic":665,"Neuer":811,"Raya":942,"Rulli":983,"Sá":986,"Hakimi":497,"N. Mendes":744,"Dumfries":358,"Van Dijk":1167,"Cancelo":240,"Gvardiol":486,"Marquinhos":702,"Van de Ven":1166,"Bremer":213,"Guéhi":473,"Hernandez Th.":518,"Schlotterbeck":1024,"Kounde":628,"Saliba W.":1002,"Dias":333,"Inácio":538,"Konsa":623,"Magalhães":685,"Porro":908,"Rüdiger":980,"Cucurella":294,"Cubarsí":291,"Konaté":619,"Upamecano":1156,"Molina":765,"Romero":975,"Tah":1109,"Dalot":300,"Llorente":668,"Laporte":645,"Grimaldo":469,"Otamendi":856,"Tagliafico":1107,"Akanji":37,"Aké":39,"Mazraoui":724,"Aguerd":32,"Danilo":301,"Stones":1086,"Eric García":439,"Robinson":959,"R. James":558,"Raum":941,"Castagne":246,"Théate":1119,"Itakura":548,"Muñoz Da.":787,"Pubill":916,"Lucumí":675,"Olise":842,"Bellingham":178,"Pedri":881,"B. Fernandes":413,"Olmo":845,"Wirtz":1212,"Musiala":791,"Valverde":1165,"Rodri":962,"Rice":953,"B. Silva":1054,"Merino":750,"Enzo Fernández":414,"Mac Allister":680,"J. Neves":812,"Kimmich":613,"Tchouaméni":1118,"Reijnders":947,"De Jong":311,"Gravenberch":466,"Guimarães":478,"Fabián Ruiz":982,"Vitinha":1187,"Paquetá":867,"Zubimendi":1251,"Gavi":441,"De Arrascaeta":307,"Rabiot":926,"Šulc":1094,"Mainoo":690,"R. Neves":813,"De Paul":314,"Modrić":759,"Casemiro":244,"Kovačić":629,"Cherki":261,"Sané":1010,"Pulisic":918,"Doku":349,"De Bruyne":308,"De Ketelaere":312,"Ødegaard":834,"Güler":480,"Çalhanoğlu":235,"Son":1069,"McTominay":737,"Kramarić":631,"Mbappé":725,"Kane":587,"Yamal":1224,"Dembélé":323,"Lautaro":709,"Vinícius":1184,"J. Álvarez":96,"Raphinha":936,"N. Williams":1208,"Doué":355,"Barcola":154,"Saka":998,"Ferran Torres":1139,"Ronaldo":977,"Oyarzabal":859,"Leão":651,"Watkins":1199,"Martinelli":704,"G. Ramos":933,"Messi":751,"Gakpo":433,"Depay":326,"Madueke":683,"Rashford":937,"Díaz Lu.":338,"Núñez":825,"S. Giménez":450,"R. Jiménez":565,"Embolo":380,"El Kaabi":368,"Endrick":383,"Neymar":814,"Conceição":278,"Trincão":1146,"Gyökeres":487,"Isak":544,"Haaland":488,"Salah":999,"Yildiz":1230};
 const LISTONE_N=1251;
 let players=RAW.map((p,i)=>({id:i,name:p[0],nat:p[1],role:p[2],q:p[3],secur:p[4],sp:p[5],roleAdv:p[6],inj:p[7],note:p[8],rating:RATING[p[0]]||null,callNum:CALLNUM[p[0]]??null,status:0,price:0,owner:null}));
-let BUDGET=300,curRole="ALL",hideTaken=false,query="",view="role";
+let BUDGET=300,curRole="ALL",hideTaken=false,query="",view="role",natView="grid",sortMode="rec",onlyStars=false;
 let opps=[1,2,3,4,5].map(i=>({id:i,name:"Avv "+i}));
 let MYT_FAIR=1,RANK={};
 let extras=[],EXID=1;
@@ -343,20 +376,27 @@ const cfg={credit:true,repair:true,assist:true,cs:false,malus:true,defmod:true};
 
 /* ===== V3.0 — modalità recupero: turno + stato vivo/eliminato + field-thinning ===== */
 // turno del torneo: guida l'esponente di fase (PHI) e la rinormalizzazione EG (LAMBDA).
-let turno="iniziale"; // iniziale | ottavi | quarti | semi | finale
-const TURNI=["iniziale","ottavi","quarti","semi","finale"];
-const TURNO_LAB={iniziale:"Iniziale",ottavi:"Ottavi",quarti:"Quarti",semi:"Semifinali",finale:"Finale"};
+let turno="iniziale"; // iniziale | sedicesimi | ottavi | quarti | semi | finale
+const TURNI=["iniziale","sedicesimi","ottavi","quarti","semi","finale"];
+const TURNO_LAB={iniziale:"Iniziale",sedicesimi:"Sedicesimi",ottavi:"Ottavi",quarti:"Quarti",semi:"Semifinali",finale:"Finale"};
 // elim[natCode]=true => nazione eliminata. Mai riassegnato il binding: si mutano le chiavi (ref stabile per test/persistenza).
 let elim={};
 // --- PARAMETRI TUNABILI DEL MODELLO (documentati, in cima così si toccano senza cercare) ---
 // BETA: forza dell'effetto-quota (softmax sulla forza=EG dei vivi). Piu' alto => i favoriti pesano di piu'.
 const BETA=3;
 // LAMBDA[turno]: intensita' del field-thinning, crescente Ottavi->Finale. 0 = nessuna rinormalizzazione (Iniziale).
-const LAMBDA={iniziale:0,ottavi:0.25,quarti:0.45,semi:0.70,finale:1.00};
+const LAMBDA={iniziale:0,sedicesimi:0.15,ottavi:0.25,quarti:0.45,semi:0.70,finale:1.00};
 // PHI[turno]: esponente di fase di egMult. Iniziale=1.5 IDENTICO alla V2.2 (phase "init"); sale coi turni.
-const PHI={iniziale:1.5,ottavi:1.8,quarti:2.0,semi:2.2,finale:2.3};
+const PHI={iniziale:1.5,sedicesimi:1.65,ottavi:1.8,quarti:2.0,semi:2.2,finale:2.3};
 // EG_FLOOR_ALIVE: clamp minimo dell'egEff di un sopravvissuto, cosi' un debole vivo non degenera (la morte e' gestita a parte).
 const EG_FLOOR_ALIVE=2.6;
+// Gironi del sorteggio 2026 (verificati col sorteggio ufficiale). Partizione esatta delle 48 di NAT.
+const GIRONI={
+A:["mes","cor","sud","cec"],B:["can","svi","qat","bos"],C:["bra","mar","hai","sco"],
+D:["sta","aus","par","tur"],E:["ger","ecu","cos","cur"],F:["ola","gia","tun","sve"],
+G:["bel","egi","irn","nuo"],H:["spa","uru","ara","cap"],I:["fra","sen","irq","nor"],
+J:["arg","alg","unb","gio"],K:["por","col","uzb","con"],L:["ing","cro","gha","pan"]
+};
 function aliveNats(){return Object.keys(NAT).filter(n=>!elim[n]);}
 // natShare: % favorita = unica fonte di verita' (alimenta sia il pannello sia egEff). forza = NAT[nat][1] = EG.
 function natShare(nat){if(elim[nat])return 0;const A=aliveNats();if(!A.length)return 0;const Z=A.reduce((s,x)=>s+Math.pow(NAT[x][1],BETA),0);return Z>0?Math.pow(NAT[nat][1],BETA)/Z:0;}
@@ -393,7 +433,7 @@ function natOwned(nat){return players.filter(p=>p.status===1&&p.nat===nat).lengt
 function softCap(nat){const eg=NAT[nat][1];return Math.max(2,Math.min(6,Math.round(1.5+((eg-3.0)/3.1)*4.5)));}
 function natDivFactor(p){const o=natOwned(p.nat),c=softCap(p.nat);return o<c?1:Math.pow(0.55,o-c+1);}
 function scarcity(p){const cls=classOf(p);const alts=players.filter(x=>x.status===0&&x.role===p.role&&x.id!==p.id&&classOf(x)===cls&&Math.min(fairValue(x),maxAffordable())>0).length;return alts<=1?1.15:alts>=5?0.85:1.0;}
-function maxBid(p){if(p.status!==0)return 0;if(elim[p.nat])return 0;const rem=BUDGET-spent(),slotsLeft=25-totalOwned();const hard=Math.max(0,rem-(slotsLeft-1));if(liveNeed(p.role)<=0)return 0;if(classOf(p)==="trap")return Math.round(Math.min(fairValue(p),hard));let scale=Math.max(0.7,Math.min(3.0,rem/MYT_FAIR));if(targetTier(p)==="none")scale=Math.min(scale,1);const nudge=1+0.04*Math.min(contenders(p).length,3);const nf=natOwned(p.nat)>=softCap(p.nat)?0.7:1;return Math.max(0,Math.round(Math.min(fairValue(p)*scale*nudge*nf,hard)));}
+function maxBid(p){if(p.status!==0)return 0;if(elim[p.nat])return 0;const rem=BUDGET-spent(),slotsLeft=25-totalOwned();const hard=Math.max(0,rem-(slotsLeft-1));if(liveNeed(p.role)<=0)return 0;if(classOf(p)==="trap")return 0;let scale=Math.max(0.7,Math.min(3.0,rem/MYT_FAIR));if(targetTier(p)==="none")scale=Math.min(scale,1);const nudge=1+0.04*Math.min(contenders(p).length,3);const nf=natOwned(p.nat)>=softCap(p.nat)?0.7:1;return Math.max(0,Math.round(Math.min(fairValue(p)*scale*nudge*nf,hard)));}
 function adjValue(p){return fairValue(p)*natDivFactor(p);}
 function priority(p){if(p.status!==0)return-100;if(elim[p.nat])return-100;const r=p.role;if(liveNeed(r)<=0)return-100;if(classOf(p)==="trap")return-10;if(maxBid(p)<1)return-50;const t=targetTier(p);let base=t==="star"?4:t==="target"?3:1;if(natOwned(p.nat)>=softCap(p.nat)+1)base=Math.min(base,1);return base;}
 function oppPlayers(oid){return players.filter(p=>p.status===2&&p.owner===oid);}
@@ -402,6 +442,53 @@ function oppRem(oid){return BUDGET-oppSpent(oid);}
 function oppRole(oid,r){return oppPlayers(oid).filter(p=>p.role===r).length+extras.filter(x=>x.owner===oid&&x.role===r).length;}
 function projPoints(t){if(t==="me")return Math.round(players.filter(p=>p.status===1).reduce((s,p)=>s+fairValue(p),0));return Math.round(oppPlayers(t).reduce((s,p)=>s+fairValue(p),0)+extras.filter(x=>x.owner===t).reduce((s,x)=>s+x.price,0));}
 function contenders(p){return opps.filter(o=>oppRole(o.id,p.role)<ROLES[p.role].need&&oppRem(o.id)>=Math.max(2,Math.round(fairValue(p)*0.4)));}
+// ===== V3.3 — consigliere "prossimo da chiamare" (asta a chiamata). Stateless: dipende solo dallo stato vivo.
+// Valore alto + bassa concorrenza ATTUALE (pochi rivali che possono rilanciare) = il giocatore da chiamare ora.
+function callScore(p){
+  if(p.status!==0||elim[p.nat])return -1;
+  if(liveNeed(p.role)<=0)return -1;          // ruolo pieno: non puoi prenderlo
+  if(classOf(p)==="trap")return -1;          // non chiamare trappole per te
+  if(maxBid(p)<1)return -1;                  // non te lo puoi permettere
+  const c=contenders(p).length;
+  const compBonus=1+0.6*(1-Math.min(c,4)/4); // 1.6 (0 rivali) .. 1.0 (>=4 rivali)
+  return adjValue(p)*compBonus*roleRoomFactor(p.role);
+}
+function bestCall(){const cands=players.filter(p=>callScore(p)>0);if(!cands.length)return null;return cands.sort((a,b)=>callScore(b)-callScore(a))[0];}
+/* ===== V3.4 — assi budget-aware + Oracolo (advisory-only, agnostico al formato d'asta) ===== */
+// roleRoomFactor: 1.25 (ruolo con tutto il budget libero) .. 0.45 (ruolo sforato). Deprioritizza i ruoli gia' saturi di spesa.
+function roleRoomFactor(r){const rb=roleBudget(r);if(rb<=0)return 1;const room=rb-spentInRole(r);return Math.max(0.45,Math.min(1.25,0.75+0.55*(room/rb)));}
+// objectiveScore: il "miglior obiettivo" reso budget-aware. valore × urgenza-slot × spazio-budget-del-ruolo.
+function objectiveScore(p){if(p.status!==0||elim[p.nat])return -1;if(priority(p)<=0)return -1;const r=p.role;const slotUrg=(ROLES[r].need-ownedInRole(r).length)/ROLES[r].need;return adjValue(p)*(0.5+0.7*slotUrg)*roleRoomFactor(r);}
+function bestObjective(){const c=players.filter(p=>objectiveScore(p)>0);if(!c.length)return null;return c.sort((a,b)=>objectiveScore(b)-objectiveScore(a))[0];}
+// planLeft: surfacing del modello stelle-e-gregari gia' implicito (PREM_SLOTS/VAL_SLOTS). Quante stelle ancora permesse, quanti riempitivi, budget stelle.
+function planLeft(){let st=0,va=0;for(const r of["P","D","C","A"]){st+=Math.max(0,PREM_SLOTS[r]-premOwned(r));va+=Math.max(0,VAL_SLOTS[r]-valOwned(r));}const slotsLeft=25-totalOwned();const fillers=Math.max(0,slotsLeft-st-va);const rem=BUDGET-spent();const reserve=va*8+fillers*2;const starBudget=Math.max(0,rem-reserve);return{stars:st,value:va,fillers,starBudget,slotsLeft};}
+// affordableInRole: migliori liberi non-trap/non-eliminati del ruolo r col valore equo entro il tetto.
+function affordableInRole(r,ceiling){return players.filter(p=>p.status===0&&p.role===r&&!elim[p.nat]&&classOf(p)!=="trap"&&liveNeed(r)>0&&fairValue(p)<=Math.max(1,ceiling)).sort((a,b)=>adjValue(b)-adjValue(a));}
+// ORACOLO: consigliere salvavita, MAI vuoto. Ragiona sulla solvibilita' (devi poter riempire tutti gli slot), non sull'alfabeto.
+function oracolo(){
+  const rem=BUDGET-spent(),slotsLeft=25-totalOwned();
+  const pl=planLeft();
+  const planTxt=`stelle permesse <b>${pl.stars}</b> · slot valore <b>${pl.value}</b> · riempitivi ≤5cr <b>${pl.fillers}</b> · budget stelle ~<b>${pl.starBudget}</b> cr`;
+  if(slotsLeft<=0)return{level:"done",lab:"Rosa completa",msg:`25/25. Spesi <b>${spent()}</b> cr, rimasti <b>${rem}</b>. Da qui solo riparazioni post-eliminazioni.`,names:[],plan:planTxt};
+  const needs=["P","D","C","A"].filter(r=>liveNeed(r)>0);
+  const spendable=rem-(slotsLeft-1); // max sul PROSSIMO restando capace di riempire il resto a 1 cr
+  // CRISI: non puoi nemmeno riempire tutti gli slot a 1 cr
+  if(rem<slotsLeft){const short=slotsLeft-rem;return{level:"crisis",lab:"Crisi budget",msg:`<b>${rem}</b> cr per <b>${slotsLeft}</b> slot: <b>non completi la rosa</b>, ti mancano ~<b>${short}</b> crediti. Hai strapagato troppo presto. Da ora <b>solo 1 cr a giocatore</b> e finirai con ~${short} slot vuoti (= punti persi). Riempi i ruoli scoperti: ${needs.join(", ")}.`,names:[],plan:planTxt};}
+  // miglior bisogno disponibile e suo equo (per capire se puoi ancora vincerlo restando solvibile)
+  let bestEquo=0,bestRole=null;for(const r of needs){const a=players.filter(p=>p.status===0&&p.role===r&&!elim[p.nat]&&classOf(p)!=="trap").sort((x,y)=>adjValue(y)-adjValue(x))[0];if(a){const e=fairValue(a);if(e>bestEquo){bestEquo=e;bestRole=r;}}}
+  // STRETTO: non puoi pagare l'equo del tuo miglior obiettivo senza rompere la solvibilita'
+  if(spendable<bestEquo){
+    // scegli il ruolo dove resta piu' valore ANCORA acquistabile entro il tetto
+    let pick=null,pickVal=-1;for(const r of needs){const aff=affordableInRole(r,spendable);if(aff.length&&adjValue(aff[0])>pickVal){pickVal=adjValue(aff[0]);pick=r;}}
+    if(pick){const aff=affordableInRole(pick,spendable).slice(0,3);return{level:"tight",lab:"Budget stretto",msg:`Ti manca <b>${ROLES[pick].name}</b>: prendine uno a <b>≤ ${Math.max(1,spendable)} cr</b>. Oltre quel tetto non resti solvibile per gli altri ${slotsLeft-1} slot.`,names:aff.map(p=>({n:p.name,nat:p.nat,e:fairValue(p)})),plan:planTxt};}
+    return{level:"tight",lab:"Budget stretto",msg:`Ovunque restano solo riempitivi: prendi a <b>1 cr</b> nei ruoli ${needs.join(", ")} e non rilanciare. Tieni l'osso per un solo colpo se serve.`,names:[],plan:planTxt};
+  }
+  // ALLERTA ANTICIPATA: puoi ancora vincere il top, ma il cuscino e' sottile (gli altri ti snipano a poco)
+  if(spendable<bestEquo*1.5){const perSlot=Math.max(0,Math.floor(spendable/slotsLeft));const b=bestObjective();return{level:"warn",lab:"Potere d'acquisto in calo",msg:`<b>${rem}</b> cr per <b>${slotsLeft}</b> slot (~${perSlot}/slot oltre il minimo). Puoi ancora prendere ${b?`<b>${b.name}</b> (${ROLES[b.role].name})`:"i tuoi obiettivi"}, ma il margine è sottile: <b>non strapagare i prossimi</b> o ti sniperanno i target a basso prezzo.`,names:[],plan:planTxt};}
+  // SANO
+  const b=bestCall()||bestObjective();
+  return{level:"ok",lab:"Sotto controllo",msg:b?`Prossima mossa: <b>${b.name}</b> (${ROLES[b.role].name}) a <b>≤ ${maxBid(b)} cr</b>. ${contenders(b).length?`${contenders(b).length} rivali sul ruolo`:"nessun rivale ti contende → parti basso"}.`:`Margine ok: ${rem} cr per ${slotsLeft} slot.`,names:[],plan:planTxt};
+}
 function sortKey(name){return name.replace(/^[A-Z]\.\s+/,"").normalize("NFD").replace(/[\u0300-\u036f]/g,"").toLowerCase();}
 function liveNeed(r){return Math.max(0,ROLES[r].need-ownedInRole(r).length);}
 function computeRanks(){RANK={};for(const r of["P","D","C","A"]){const arr=players.filter(x=>x.status===0&&x.role===r&&classOf(x)!=="trap").sort((a,b)=>adjValue(b)-adjValue(a));arr.forEach((p,i)=>RANK[p.id]=i+1);}}
@@ -423,12 +510,23 @@ const sc=document.getElementById("slots");sc.innerHTML="";
 for(const r of["P","D","C","A"]){const f=ownedInRole(r).length,n=ROLES[r].need;const d=document.createElement("div");d.className="slot"+(f===n?" full":"")+(f>n?" over":"");d.innerHTML=`<div class="r">${r}</div><div class="c">${f}/${n}</div>`;sc.appendChild(d);}
 document.getElementById("ruleSummary").textContent=(cfg.credit?"Recupero crediti ON → profondità meno cruciale. ":"Nessun recupero → profondità decisiva. ")+(turno!=="iniziale"?`Turno ${TURNO_LAB[turno]} (EG rinormalizzato sui vivi).`:"");
 
-// global next move
-const cand=[];for(const r of["P","D","C","A"]){const top=players.filter(p=>p.role===r&&p.status===0&&priority(p)>0).sort((a,b)=>priority(b)-priority(a)||adjValue(b)-adjValue(a))[0];if(top){const urg=(ROLES[r].need-ownedInRole(r).length)/ROLES[r].need;cand.push({p:top,score:adjValue(top)*(0.6+0.7*urg)});}}
-cand.sort((a,b)=>b.score-a.score);
-const nm=document.getElementById("nextmove");
-if(cand.length){const p=cand[0].p;const cn=contenders(p).length;const press=cn?`<span style="color:var(--amber)">${cn} avversari attivi sul ruolo</span>`:`<span style="color:var(--green)">nessuno ti contende → parti basso</span>`;nm.innerHTML=`<div><div class="nm-lab">Miglior obiettivo disponibile</div><div class="nm-name">${p.name} <span class="nat">${p.nat}</span></div><div class="nm-meta">${ROLES[p.role].name} · equo ${fairValue(p)}${p.rating?` · rating ${p.rating}`:""}${p.callNum?` · chiamata #${p.callNum}/~${LISTONE_N}`:""} · ${press}</div></div><div class="nm-bid">max ${maxBid(p)} cr</div>`;nm.style.display="flex";}
-else{nm.style.display="none";}
+// global next move (budget-aware: valore × urgenza-slot × spazio-budget-ruolo)
+const nm=document.getElementById("nextmove"),nmCap=document.getElementById("nmCap");
+const bo=bestObjective();
+if(bo){const p=bo,cn=contenders(p).length;const press=cn?`<span style="color:var(--amber)">${cn} avversari attivi sul ruolo</span>`:`<span style="color:var(--green)">nessuno ti contende → parti basso</span>`;nm.innerHTML=`<div><div class="nm-lab">Miglior obiettivo disponibile</div><div class="nm-name">${p.name} <span class="nat">${p.nat}</span></div><div class="nm-meta">${ROLES[p.role].name} · equo ${fairValue(p)}${p.rating?` · rating ${p.rating}`:""}${p.callNum?` · chiamata #${p.callNum}/~${LISTONE_N}`:""} · ${press}</div></div><div class="nm-bid">max ${maxBid(p)} cr</div>`;nm.style.display="flex";nmCap.style.display="block";}
+else{nm.style.display="none";nmCap.style.display="none";}
+
+// V3.3 — prossimo da chiamare (asta a chiamata)
+const cm=document.getElementById("callmove"),cmCap=document.getElementById("cmCap");
+const bc=bestCall();
+if(bc){const cc=contenders(bc).length;const comp=cc===0?`<span style="color:var(--green)">nessun rivale può rilanciare → chiamalo, lo prendi vicino al minimo</span>`:`<span style="color:var(--amber)">${cc} rivali possono ancora contenderlo</span>`;cm.innerHTML=`<div><div class="nm-lab" style="color:var(--blue)">📣 Prossimo da chiamare</div><div class="nm-name">${bc.name} <span class="nat">${bc.nat}</span></div><div class="nm-meta">${ROLES[bc.role].name} · equo ${fairValue(bc)} · ${comp}</div></div><div class="nm-bid">max ${maxBid(bc)} cr</div>`;cm.style.display="flex";cmCap.style.display="block";}
+else{cm.style.display="none";cmCap.style.display="none";}
+
+// V3.4 — ORACOLO: sempre visibile, mai vuoto. La mossa salvavita data la solvibilita'.
+const orc=oracolo(),orEl=document.getElementById("oracolo");
+orEl.className="oracolo "+orc.level;
+const orNames=orc.names&&orc.names.length?`<div class="or-names">${orc.names.map(x=>`<span class="onm">${x.n} <span class="nat">${x.nat}</span> <b>equo ${x.e}</b></span>`).join("")}</div>`:"";
+orEl.innerHTML=`<div class="or-lab">🔮 Oracolo · ${orc.lab}</div><div class="or-msg">${orc.msg}</div>${orNames}<div class="or-plan">${orc.plan}</div>`;
 
 const board=document.getElementById("board");board.innerHTML="";
 if(view==="queue"){renderQueue();renderOpps();renderRoster();return;}
@@ -437,7 +535,14 @@ for(const r of roles){
 let list=players.filter(p=>p.role===r);
 if(query)list=list.filter(p=>p.name.toLowerCase().includes(query)||NAT[p.nat][0].toLowerCase().includes(query));
 if(hideTaken)list=list.filter(p=>p.status!==2&&p.status!==3);
-list.sort((a,b)=>{const g=x=>x.status===0?0:x.status===1?1:2;if(g(a)!==g(b))return g(a)-g(b);if(a.status===0&&priority(a)!==priority(b))return priority(b)-priority(a);return adjValue(b)-adjValue(a);});
+if(onlyStars)list=list.filter(p=>p.status===0&&stars(p).n>=2);
+list.sort((a,b)=>{const g=x=>x.status===0?0:x.status===1?1:2;if(g(a)!==g(b))return g(a)-g(b);
+if(a.status===0&&b.status===0){
+if(sortMode==="stars"){const sa=stars(a).n,sb=stars(b).n;if(sa!==sb)return sb-sa;return adjValue(b)-adjValue(a);}
+if(sortMode==="equo")return fairValue(b)-fairValue(a);
+if(sortMode==="max"){const ma=maxBid(a),mb=maxBid(b);if(ma!==mb)return mb-ma;return adjValue(b)-adjValue(a);}
+if(priority(a)!==priority(b))return priority(b)-priority(a);}
+return adjValue(b)-adjValue(a);});
 if(!list.length)continue;
 const rec=list.find(p=>p.status===0&&priority(p)>0);
 const rb=roleBudget(r),sir=spentInRole(r),over=sir>rb;
@@ -492,7 +597,18 @@ function syncTurnoButtons(){document.querySelectorAll("#turnoSel button,#turnoSe
 function renderNations(){
   const ts2=document.getElementById("turnoSel2");if(ts2)ts2.innerHTML=TURNI.map(t=>`<button data-t="${t}" class="${t===turno?'on':''}">${TURNO_LAB[t]}</button>`).join("");
   syncTurnoButtons();
+  document.querySelectorAll("#natViewToggle .tab").forEach(b=>b.classList.toggle("active",b.dataset.nv===natView));
   const panel=document.getElementById("natPanel");if(!panel)return;
+  if(natView==="groups"){
+    let h=`<div class="girgrid">`;
+    for(const g of Object.keys(GIRONI)){
+      h+=`<div class="gircard"><div class="girhd">Girone ${g}</div>`;
+      for(const c of GIRONI[g]){const dead=!!elim[c],sh=natShare(c);
+        h+=`<div class="girnat${dead?' dead':''}" data-nat="${c}" title="${dead?'eliminata — clic per riportarla viva':'clic = marca eliminata'}"><span class="nfl">${flag(c)}</span><span class="nnm">${NAT[c][0]}</span><span class="npc">${dead?'OUT':(sh*100).toFixed(1)+'%'}</span></div>`;}
+      h+=`</div>`;
+    }
+    h+=`</div>`;panel.innerHTML=h;return;
+  }
   const codes=Object.keys(NAT).sort((a,b)=>{const da=elim[a]?1:0,db=elim[b]?1:0;if(da!==db)return da-db;return natShare(b)-natShare(a);});
   const maxShare=Math.max(...aliveNats().map(natShare),0.0001);
   let h=`<div class="natgrid">`;
@@ -541,6 +657,8 @@ document.getElementById("turnoSel").addEventListener("click",e=>{if(!e.target.da
 function syncTurnoButtons(){document.querySelectorAll("#turnoSel button").forEach(b=>b.classList.toggle("on",b.dataset.t===turno));}
 document.getElementById("search").addEventListener("input",e=>{query=e.target.value.toLowerCase().trim();render();});
 document.getElementById("hideTaken").addEventListener("change",e=>{hideTaken=e.target.checked;render();});
+document.getElementById("sortSel").addEventListener("change",e=>{sortMode=e.target.value;render();});
+document.getElementById("onlyStars").addEventListener("change",e=>{onlyStars=e.target.checked;render();});
 document.getElementById("budget").addEventListener("input",e=>{BUDGET=parseInt(e.target.value,10)||0;render();});
 ["credit","repair","assist","cs","malus","defmod"].forEach(k=>{document.getElementById("t_"+k).addEventListener("change",e=>{cfg[k]=e.target.checked;render();});});
 function renderQueue(){
@@ -585,7 +703,8 @@ if(t.id==="ex_add"){const owner=+document.getElementById("ex_owner").value,role=
 else if(t.dataset.exdel!=null){extras=extras.filter(x=>x.id!==+t.dataset.exdel);render();}});
 document.getElementById("reset").addEventListener("click",()=>{if(confirm("Azzerare tutti gli acquisti?")){players.forEach(p=>{p.status=0;p.price=0;p.owner=null;});extras=[];render();}});
 document.getElementById("turnoSel2").addEventListener("click",e=>{if(!e.target.dataset.t)return;turno=e.target.dataset.t;syncTurnoButtons();render();});
-document.getElementById("natPanel").addEventListener("click",e=>{const chip=e.target.closest?e.target.closest(".natchip"):null;if(!chip||!chip.dataset.nat)return;const c=chip.dataset.nat;if(elim[c])delete elim[c];else elim[c]=true;render();});
+document.getElementById("natPanel").addEventListener("click",e=>{const chip=e.target.closest?e.target.closest("[data-nat]"):null;if(!chip||!chip.dataset.nat)return;const c=chip.dataset.nat;if(elim[c])delete elim[c];else elim[c]=true;render();});
+document.getElementById("natViewToggle").addEventListener("click",e=>{if(!e.target.dataset.nv)return;natView=e.target.dataset.nv;render();});
 document.getElementById("roster").addEventListener("click",e=>{const t=e.target;if(t.dataset.free!=null){release(+t.dataset.free);render();}else if(t.dataset.freeall!=null){players.filter(p=>p.status===1&&elim[p.nat]).forEach(p=>release(p.id));render();}});
 document.getElementById("sessionBar").addEventListener("click",e=>{const id=e.target.id;if(id==="sb_export")exportJSON();else if(id==="sb_import"){const f=document.getElementById("sb_file");if(f)f.click();}else if(id==="sb_new")nuovaAsta();});
 document.getElementById("sessionBar").addEventListener("change",e=>{if(e.target.id==="sb_file"&&e.target.files&&e.target.files[0])importJSON(e.target.files[0]);});
