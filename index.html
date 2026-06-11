@@ -265,7 +265,7 @@ footer{color:var(--muted2);font-size:10px;text-align:center;margin-top:28px;line
 <div class="legend" style="margin:6px 0 14px"><span><b style="color:var(--gold)">Max</b> = tuo tetto consigliato (può superare l'Equo se hai surplus; "–" se ruolo pieno)</span><span><b style="color:var(--amber)">⚠</b> = infortunio/dubbio fisico</span><span><b style="color:var(--green)">★ CONSIGLIATO ORA</b> = mossa migliore adesso</span><span><b style="color:var(--gold)">★★★</b> priorità · <b style="color:var(--green)">★★</b> buona alternativa · <b style="color:var(--muted)">★</b> ripiego conveniente · <b style="color:var(--muted2)">☆☆☆</b> trappola / non conveniente · <b style="color:var(--red)">AL COMPLETO</b> ruolo già pieno</span><span>Quot. = base listone fantaclub (non è l'offerta minima)</span></div>
 <div id="board"></div>
 <div class="roster" id="roster"></div>
-<footer>Regole lega confermate: gol +3 (tutti i ruoli), assist +1, porta imbattuta 0, malus −1 gol subito portiere, rigore parato +3, rigore sbagliato −3. Modificatore difesa +1/+3/+6 (media portiere + 3 migliori difensori, SOLO con difesa a 4). Recupero crediti = costo d'acquisto. Asta a banditore automatico, ordine alfabetico, una passata, rilanci, quotazione non vincolante. Fonte voti: Redazione Mondiale Media (editoriale) · assist: Fantaclub. Quotazioni = listone fornito (Dumfries 17, Wesley rimosso). Rating = media 2025/26 WhoScored/SofaScore per la fascia decisionale (per alcuni big: consenso). Partite attese: Opta, inizio giugno 2026. Stima soggettiva, non garanzia. Salvataggio automatico in locale (per nome giocatore) + Esporta/Importa JSON: puoi ricaricare la pagina senza perdere l'asta. V3.4 · Oracolo salvavita (alert solvibilità) · caselle budget-aware + didascalie · piano rosa (stelle-e-gregari) · ordina/filtra per stelle · max trappole = "–" · modalità recupero (6 stadi) · pannello Gironi · consigliere chiamata · coda A→Z.</footer>
+<footer>Regole lega confermate: gol +3 (tutti i ruoli), assist +1, porta imbattuta 0, malus −1 gol subito portiere, rigore parato +3, rigore sbagliato −3. Modificatore difesa +1/+3/+6 (media portiere + 3 migliori difensori, SOLO con difesa a 4). Recupero crediti = costo d'acquisto. Asta a banditore automatico, ordine alfabetico, una passata, rilanci, quotazione non vincolante. Fonte voti: Redazione Mondiale Media (editoriale) · assist: Fantaclub. Quotazioni = listone fornito (Dumfries 17, Wesley rimosso). Rating = media 2025/26 WhoScored/SofaScore per la fascia decisionale (per alcuni big: consenso). Partite attese: Opta, inizio giugno 2026. Stima soggettiva, non garanzia. Salvataggio automatico in locale (per nome giocatore) + Esporta/Importa JSON: puoi ricaricare la pagina senza perdere l'asta. V3.4.1 · dataset lega completo (197 giocatori) + import rose · Oracolo salvavita (alert solvibilità) · caselle budget-aware + didascalie · piano rosa (stelle-e-gregari) · ordina/filtra per stelle · max trappole = "–" · modalità recupero (6 stadi) · pannello Gironi · consigliere chiamata · coda A→Z.</footer>
 </div>
 
 <div class="overlay" id="overlay"><div class="modal">
@@ -359,7 +359,54 @@ const RAW=[
 ["Conceição","por","A",15,.6,0,1.06,0,"Portogallo"],["Trincão","por","A",20,.6,0,1.06,0,"rischio panchina"],
 ["Gyökeres","sve","A",28,1,1,1,0,"TRAPPOLA: gran rating ma Svezia esce presto"],["Isak","sve","A",30,1,0,1,0,"TRAPPOLA: Svezia"],
 ["Haaland","nor","A",40,1,1,1,0,"TRAPPOLA: 27 gol PL ma Norvegia volatile e costo enorme"],["Salah","egi","A",33,1,2,1.06,0,"TRAPPOLA: Egitto esce presto; falla pagare agli altri"],
-["Yildiz","tur","A",24,.7,0,1.06,1,"Turchia + (I)"]
+["Yildiz","tur","A",24,.7,0,1.06,1,"Turchia + (I)"],
+["Z. Suzuki","gia","P",10,0.9,0,1,0,"Giappone, n.1"],
+["Turner","sta","P",8,0.7,0,1,0,"USA, ballottaggio porta"],
+["Khusanov","uzb","D",6,0.9,0,1,0,"Uzbekistan, CB"],
+["Kim Min-jae","cor","D",11,1,0,1,0,"Corea, leader difesa"],
+["Santos","bra","D",5,0.6,0,1,0,"Brasile, riserva difesa"],
+["Araújo","por","D",5,0.6,0,1,0,"Portogallo, difesa"],
+["Gusto","fra","D",8,0.6,0,1.08,0,"Francia, terzino"],
+["Ibañez","bra","D",7,0.7,0,1,0,"Brasile, CB"],
+["Nunes","por","D",6,0.6,0,1,0,"Portogallo, difesa"],
+["Lacroix","fra","D",8,0.7,0,1,0,"Francia, CB"],
+["Elliot","nuo","D",2,0.5,0,1,0,"Nuova Zelanda"],
+["Ryerson","nor","D",7,0.8,0,1.08,0,"Norvegia, terzino"],
+["Davies","can","D",11,0.9,1,1.12,0,"Canada, terzino offensivo"],
+["El Ouahdi","mar","D",6,0.7,0,1.06,0,"Marocco, terzino"],
+["Ajer","nor","D",6,0.8,0,1,0,"Norvegia, CB"],
+["Gudmundsson D.","sve","D",5,0.6,0,1,0,"Svezia, difesa"],
+["W. Pacho","ecu","D",9,0.9,0,1,0,"Ecuador, CB solido"],
+["Mendy De.","sen","D",7,0.8,0,1,0,"Senegal, difesa"],
+["Alex Sandro","bra","D",6,0.6,0,1.06,0,"Brasile, terzino esperto"],
+["Mojica","col","D",7,0.8,0,1.08,0,"Colombia, terzino"],
+["J. Giménez","uru","D",9,0.9,0,1,0,"Uruguay, CB (José M.)"],
+["Eze","ing","C",14,0.7,0,1.06,0,"Inghilterra, trequartista"],
+["Pavlović","ger","C",9,0.7,0,1,0,"Germania, mediano"],
+["Diallo Am.","cos","C",10,0.8,0,1.06,0,"Costa d'Avorio, esterno"],
+["Kessié","cos","C",9,0.8,0,1,0,"Costa d'Avorio, mediano"],
+["De la Cruz","uru","C",9,0.7,0,1.06,0,"Uruguay, mezzala"],
+["N. González","arg","C",12,0.7,0,1.06,0,"Argentina, esterno"],
+["Zaïre-Emery","fra","C",10,0.6,0,1,0,"Francia, mediano giovane"],
+["Bentancur","uru","C",10,0.9,0,1,0,"Uruguay, regista"],
+["Palacios","arg","C",9,0.6,0,1,0,"Argentina, mediano"],
+["Caicedo","ecu","C",12,1,0,1,0,"Ecuador, mediano top"],
+["Danilo Ol.","bra","C",8,0.7,0,1,0,"Brasile, mediano (≠ Danilo dif.)"],
+["Kanté","fra","C",12,0.8,0,1,0,"Francia, mediano"],
+["M. Koné","fra","C",9,0.8,0,1,0,"Francia, mediano"],
+["J. Rodríguez","col","C",12,0.8,1,1.06,0,"Colombia, rifinitore + piazzati"],
+["L. Camara","sen","C",9,0.8,0,1,0,"Senegal, mediano"],
+["Bergvall","sve","C",6,0.6,0,1,0,"Svezia, giovane"],
+["Paz","arg","C",9,0.5,0,1.06,0,"Argentina, trequartista (rotazione)"],
+["Mané","sen","A",16,0.9,0,1.06,0,"Senegal, esterno"],
+["Malen","ola","A",13,0.7,0,1.06,0,"Olanda, esterno"],
+["Iglesias","spa","A",9,0.6,0,1,0,"Spagna, punta (rotazione)"],
+["Cunha","bra","A",14,0.8,0,1.06,0,"Brasile, seconda punta"],
+["Havertz","ger","A",15,0.8,0,1,0,"Germania, punta/mezzala"],
+["Lukaku","bel","A",14,0.9,0,1,0,"Belgio, centravanti"],
+["Jackson","sen","A",12,0.8,0,1,0,"Senegal, centravanti"],
+["Rayan","bra","A",6,0.5,0,1.06,0,"Brasile, giovane esterno"],
+["Arnautović","unb","A",8,0.7,0,1,0,"Austria, punta"]
 ];
 const ROLES={P:{name:"Portieri",need:3,bud:12},D:{name:"Difensori",need:8,bud:68},C:{name:"Centrocampisti",need:8,bud:110},A:{name:"Attaccanti",need:6,bud:100}};
 const PREM_THR={P:7,D:12,C:16,A:20},VAL_THR={P:3,D:7,C:9,A:11},PREM_SLOTS={P:1,D:2,C:2,A:2},VAL_SLOTS={P:0,D:3,C:3,A:2};
